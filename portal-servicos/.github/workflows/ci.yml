@@ -1,0 +1,32 @@
+name: Build e Verificação
+
+# Define quando a pipeline vai rodar (neste caso, em qualquer 'push' de commit)
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    # A máquina virtual onde o código vai rodar
+    runs-on: ubuntu-latest
+
+    steps:
+      # Passo 1: Puxa o código do seu repositório para a máquina virtual
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # Passo 2: Prepara o ambiente instalando o Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Passo 3: Instala as dependências do projeto (como o React e o Vite)
+      - name: Instalar dependências
+        run: npm install
+
+      # Passo 4: Tenta compilar o projeto para ver se não há erros no código
+      - name: Rodar o build
+        run: npm run build
