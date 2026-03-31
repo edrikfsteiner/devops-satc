@@ -19,7 +19,7 @@ jobs:
         username: ${{secrets.DOCKER_USERNAME}}
         password: ${{secrets.DOCKER_PASSWORD}}
     - name: build
-      run: docker build -t edrikfsteiner/satc-devops:001 .
+      run: docker build -t edrikfsteiner/devops-satc:001 .
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@v2
       with:
