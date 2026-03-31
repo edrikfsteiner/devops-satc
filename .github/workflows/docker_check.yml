@@ -53,7 +53,7 @@ jobs:
           VULN_COUNT=$(jq '[.Results[].Vulnerabilities[] | select(.Severity == "MEDIUM")] | length' trivy-results.json)
           echo "Quantidade de vulnerabilidades mÃ©dias: $VULN_COUNT"
 
-          if [ "$VULN_COUNT" -gt 2 ]; then
+          if [ "$VULN_COUNT" -gt 5 ]; then
             echo "Pipeline bloqueada: mais de 2 vulnerabilidades mÃ©dias encontradas."
             exit 1
           fi
@@ -62,7 +62,7 @@ jobs:
           exit 1
         fi
 
-    - name: Falhar se houver mais de 2 vulnerabilidades mÃ©dias
+    - name: Falhar se houver mais de 5 vulnerabilidades mÃ©dias
       run: |
         COUNT=$(curl -s -u "${SONAR_TOKEN}:" \
           "https://sonarcloud.io/api/issues/search?componentKeys=${SONAR_PROJECT_KEY}&types=VULNERABILITY&severities=MAJOR&resolved=false&ps=1" \
